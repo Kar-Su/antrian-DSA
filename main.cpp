@@ -109,3 +109,16 @@ void Queue::push(const std::string &name, const int phoneNum, const std::string 
     current -> next = newNode;
 }
 
+bool Queue::_isNull(){
+    /* Fungsi untuk pengecekan apakah data kosong atau tidak
+    */
+
+    if(head == nullptr)
+    {
+        std::cerr << "Error: Require data not satisfied, abort function instead!" << std::endl;
+        getch();
+        return true;
+    }
+    return false;
+}
+
