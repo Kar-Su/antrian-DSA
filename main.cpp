@@ -2,6 +2,7 @@
 #include <string>
 #include <ctime>
 #include <map>
+#include "custom.hpp"
 
 
 enum Status { PENDING, PROSES, SELESAI };
@@ -137,7 +138,7 @@ int main(){
             clearScreen();
             size_t idx;
             int pilihanStatus;
-            std::cout << "Masukkan index data yang ingin diupdate statusnya (mulai dari 1): ";
+            std::cout << "Masukkan index data yang ingin diupdate statusnya: ";
             std::cin >> idx; std::cin.ignore();
             std::cout << "Pilih status baru:\n";
             std::cout << "1. Pending\n";
@@ -154,7 +155,7 @@ int main(){
                 std::cout << "Pilihan tidak valid!\n";
                 continue;
             }
-            test.updateStatus(idx-1, newStatus);
+            test.updateStatus(idx, newStatus);
             std::cout << "Status berhasil diupdate!\n";
             getch();
             }
@@ -191,6 +192,7 @@ int main(){
           std::cout << "Tuliskan deskripsi data yang ingin dicari: ";
           std::cin >> desc; std::cin.ignore();
           test.showBasedOnDesc(desc);
+          getch();
         }
         break;
         case '0':
@@ -434,3 +436,37 @@ size_t Queue::size(){
     return i;
 }
 
+void Queue::_insert(const size_t index, const std::string &name, const int phoneNum, const std::string &desc) {
+    /*
+        Fungsi untuk memasukkan data pada indeks tertentu
+        Fungsi ini memiliki behavior dimana dia tidak bisa melakukan fungsionalitas yang sama dengan push
+    */
+
+    std::cerr << "Warning: Insert isn't a original function from Queue" << std::endl;
+    getch();
+
+    if(index >= size() || head == nullptr)
+    {
+        std::cerr << "Error: Unexpected Behavior, Use push instead!" << std::endl;
+        getch();
+        return;
+    }
+
+    time_t currentTimeStamp;
+    Node* newNode = new Node();
+
+    newNode->name = name;
+    newNode->desc = desc;
+    newNode->phoneNum = phoneNum;
+    newNode->time = time(&currentTimeStamp);
+
+    Node* current = head;
+    
+    for(size_t i = 1; i < index && current != nullptr; i++) // i dimulai dari satu karena current dimulai dari head
+    {
+        current = current->next;
+    }
+
+    newNode->next = current->next;
+    current->next = newNode;
+}
