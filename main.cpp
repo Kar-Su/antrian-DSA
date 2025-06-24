@@ -204,3 +204,22 @@ void Queue::show(){
     }
 }
 
+void Queue::updateStatus(size_t index, Status newStatus) {
+    if (_isNull()) 
+    {
+        std::cerr << "Data Kosong" << std::endl;
+        getch();
+        return;
+    }
+
+    Node* current = head;
+    while (current != nullptr)
+    {
+        if (current != nullptr && index == 0) {
+            current->status = newStatus;
+            return;
+        }
+        current = current->next;
+    }
+}
+
