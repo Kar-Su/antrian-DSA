@@ -122,3 +122,24 @@ bool Queue::_isNull(){
     return false;
 }
 
+void Queue::pop(){
+    /*
+        Fungsi untuk melakukan pop data
+    */
+
+
+    if(_isNull())
+    {
+        return;
+    }
+
+    Node *tmp = head;
+    // Handle jika yang di pop merupakan data terakhir
+    if(tmp == tail)
+    {
+        tail = nullptr;
+    }
+    head = head->next;
+    delete tmp;
+}
+
